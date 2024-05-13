@@ -12,3 +12,8 @@ Rust 流接口设计得很优雅，但你真的了解其内部工作原理吗？
 
 ### 2022-09-26 - [Axum 风格的魔术函数参数](axum-style-magic-function-param/Readme_ZH_CN.md)
 [Axum](https://github.com/tokio-rs/axum) 如何实现可以接收不同类型的函数的函数指针的方法呢？这背后使用了什么黑魔法？
+
+#### 其他语言
+- [英语](https://github.com/alexpusch/rust-magic-patterns) - <a href="https://github.com/alexpusch">@alexpusch</a>
+
+- [简体中文](https://github.com/yushengguo557/rust-magic-patterns/blob/translation-zh-cn/Readme_ZH_CN.md) - <a href="https://github.com/yushengguo557">@yushengguo557</a>
