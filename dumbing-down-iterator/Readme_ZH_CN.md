@@ -1,6 +1,15 @@
 # 简化 Rust 迭代器内部工作原理
 
-原文链接(英文): https://github.com/alexpusch/rust-magic-patterns/tree/master/dumbing-down-iterator
+<details>
+  <summary>更多语言</summary>
+  <ul>
+    <li>
+      <a href=./Readme.md'>英语</a> - <a href="https://github.com/alexpusch">@alexpusch</a>
+    </li>
+  </ul>
+</details>
+
+---
 
 Rust 迭代器 API 是新手学习 Rust 语法基础后应该学习的第一个内容之一。但是，这个 API 及其文档对初学者来说可能很吓人。
 

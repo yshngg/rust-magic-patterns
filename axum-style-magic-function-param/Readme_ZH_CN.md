@@ -1,6 +1,15 @@
 # Rust 中 Axum 风格的函数参数示例
 
-原文链接(英文): https://github.com/alexpusch/rust-magic-patterns/tree/master/axum-style-magic-function-param
+<details>
+  <summary>更多语言</summary>
+  <ul>
+    <li>
+      <a href=./Readme.md'>英语</a> - <a href="https://github.com/alexpusch">@alexpusch</a>
+    </li>
+  </ul>
+</details>
+
+---
 
 学习 `Rust` 时，我遇到了一门严格的静态类型语言。具体来说就是没有函数重载或可选参数。
 

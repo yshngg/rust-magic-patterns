@@ -15,5 +15,3 @@ Rust 流接口设计得很优雅，但你真的了解其内部工作原理吗？
 
 #### 其他语言
 - [英语](https://github.com/alexpusch/rust-magic-patterns) - <a href="https://github.com/alexpusch">@alexpusch</a>
-
-- [简体中文](https://github.com/yushengguo557/rust-magic-patterns/blob/translation-zh-cn/Readme_ZH_CN.md) - <a href="https://github.com/yushengguo557">@yushengguo557</a>

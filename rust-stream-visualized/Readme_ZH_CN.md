@@ -1,6 +1,15 @@
 # 可视化探索 Rust 流接口 (Stream API)
 
-原文链接(英文): https://github.com/alexpusch/rust-magic-patterns/tree/master/rust-stream-visualized
+<details>
+  <summary>更多语言</summary>
+  <ul>
+    <li>
+      <a href=./Readme.md'>英语</a> - <a href="https://github.com/alexpusch">@alexpusch</a>
+    </li>
+  </ul>
+</details>
+
+---
 
 在实际应用程序中管理并发相当棘手。开发人员必须处理并发控制、背压、错误处理等问题。幸运的是，`Rust` 为我们提供了 `async/await` 机制，并且在此基础上，还有 [流接口](https://docs.rs/futures/latest/futures/stream/index.html)。
 
