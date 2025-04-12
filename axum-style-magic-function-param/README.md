@@ -9,7 +9,9 @@
   </ul>
 </details>
 
-初学 Rust 时，我接触到的是一门严格的静态类型语言，它没有函数重载或可选参数等特性。但当我发现[Axum](https://github.com/tokio-rs/axum)框架时，这样的代码让我感到惊奇：
+初学 Rust 时，我接触到的是一门严格的静态类型语言，它没有函数重载或可选参数等特性。
+
+但当我发现[Axum](https://github.com/tokio-rs/axum)框架时，这样的代码让我感到惊奇：
 
 ```rust
 let app = Router::new()
