@@ -96,7 +96,7 @@ trait Handler<T> {
 }
 ```
 
-第二个技巧是 `Handler` 特征。我们为[闭包类型](https://doc.rust-lang.org/reference/types/closure.html) Fn(T) 实现该特征。是的，我们可以实现闭包类型的特征。此实现将使我们能够在函数调用及其参数之间具有**中间件 (middleware)**。在这里，我们将调用 `FromContext::from_context` 方法，将 `Context` 转换为预期函数参数，即`Param` 或 `Id`。
+第二个技巧是 `Handler` 特征。我们为[闭包类型](https://doc.rust-lang.org/reference/types/closure.html) Fn(T) 实现该特征。是的，我们可以为闭包类型实现特征。此实现将使我们能够在函数调用及其参数之间具有**中间件 (middleware)**。在这里，我们将调用 `FromContext::from_context` 方法，将 `Context` 转换为预期函数参数，即`Param` 或 `Id`。
 
 ```rust
 impl<F, T> Handler<T> for F
