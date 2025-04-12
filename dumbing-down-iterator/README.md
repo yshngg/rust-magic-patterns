@@ -53,8 +53,8 @@ pub trait MyIterator {
 让我们为一个简单的切片 - `[T]` 实现一个简单的迭代器。这是 [std::slice::Iter](https://doc.rust-lang.org/std/slice/struct.Iter.html) 的简化版：
 
 ```rust
-/// SliceIterator 结构体持有对向量的引用以及迭代中的当前位置。
-/// 生命周期参数`'a`确保迭代器不超越数据存在期
+/// SliceIterator 结构体持有对向量的引用以及迭代中的当前位置
+/// 生命周期参数 `'a` 确保迭代器不超越数据存在期
 pub struct SliceIterator<'a, T> {
     data: &'a [T],
     pos: usize,
@@ -68,8 +68,8 @@ impl<'a, T> SliceIterator<'a, T> {
 }
 
 impl<'a, T> MyIterator for SliceIterator<'a, T> {
-    /// SliceIterator 的 Item 类型是对切片类型的引用。
-    /// 生命周期参数 `'a` 确保返回的引用不会超过我们正在迭代的数据的生存期。
+    /// SliceIterator 的 Item 类型是对切片类型的引用
+    /// 生命周期参数 `'a` 确保返回的引用不会超过我们正在迭代的数据的生存期
     type Item = &'a T;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -97,13 +97,13 @@ fn slice_iterator_next_returns_next_item() {
 }
 ```
 
-**生命周期参数 `'a` **确保迭代器不会超过数据存在期。这很重要，因为迭代器持有对切片的引用，如果切片在迭代器之前被丢弃，迭代器将持有一个悬垂引用 (dangling reference)。我们不希望这种情况发生。
+**生命周期参数** `'a` 确保迭代器不会超过数据存在期。这很重要，因为迭代器持有对切片的引用，如果切片在迭代器之前被丢弃，迭代器将持有一个悬垂引用 (dangling reference)。我们不希望这种情况发生。
 
 多亏了这个生命周期参数，以下代码将无法编译：
 
 ```rust
 let data = vec![1, 2, 3];                 // ──| 数据生命周期 'a 开始
-let mut iter = SliceIterator::new(&data); // SliceIterator::new 绑定到 'a 生命周期
+let mut iter = SliceIterator::new(&data); //   | SliceIterator::new 绑定到 'a 生命周期
 drop(data);                               // __| 数据被释放，生命周期结束
 iter.next();                              // 此处违反 SliceIterator 的 'a 约束
 ```
@@ -180,6 +180,14 @@ where
 }
 ```
 
+让我们检查一下这里使用的各种通用变量：
+
+`I` - `MyMap` 结构体拥有我们正在映射的迭代器实例。`I` 是这个迭代器的类型。例如，如果我们正在映射一个 `SliceIterator`，`I` 将是 `SliceIterator`。
+
+`F` - `MyMap` 结构体还拥有我们用于映射项的闭包。`F` 是此闭包的类型。例如，如果闭包是 `|x| x * 2`，`F` 将是 `FnMut(&i32) -> i32`。
+
+`B` - 需要定义 `map` 函数的返回类型。`map` 函数的返回值是 `MyMap` 迭代器的项类型。例如，若闭包为 `|x| x * 2`，则 `B` 为 `i32`，而 `MyMap` 迭代器的 `next` 方法将拥有 `Option<i32>` 作为其返回值。
+
 ### 过滤适配器（Filter Adapter）
 
 简化版 [std::iter::Filter](https://doc.rust-lang.org/std/iter/struct.Filter.html)：
@@ -244,7 +252,7 @@ fn my_map_filter_next_returns_next_item() {
 
 大多数迭代器用法最终都会调用 [`collect`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect) 方法，以便将迭代项收集到具体类型的集合中。我们也来深入了解一下这个方法的内部机制。
 
-首先，我们扩展 `MyIterator` 特性以包含 `collect` 方法：
+首先，我们扩展 `MyIterator` 特征以包含 `collect` 方法：
 
 ```rust
 pub trait MyIterator {
@@ -260,11 +268,11 @@ pub trait MyIterator {
 }
 ```
 
-`collect` 方法定义了一个返回位置泛型类型B，该类型必须实现 `MyFromIterator` 特征。
+`collect` 方法定义了一个返回位置泛型类型 `B`，该类型必须实现 `MyFromIterator` 特征。
 
 ## FromIterator 特征（FromIterator Trait）
 
-[`std::iter::FromIterator`](https://doc.rust-lang.org/std/iter/trait.FromIterator.html) 是一个特征，定义了如何从迭代器创建集合。之前我们定义了 SliceIterator 结构体，它能将向量（vector）转换为迭代器。现在我们需要定义相反的操作 -- 将迭代器转换为集合的方法。
+[`std::iter::FromIterator`](https://doc.rust-lang.org/std/iter/trait.FromIterator.html) 是一个特征，定义了如何从迭代器创建集合。之前我们定义了 SliceIterator 结构体，它能将向量（vector）转换为迭代器。现在我们需要定义相反的操作 - 将迭代器转换为集合的方法。
 
 ```rust
 pub trait MyFromIterator<T> {
