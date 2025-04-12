@@ -34,7 +34,9 @@ let s: HashSet<_> = (0..10).collect();
 
 ## 迭代器特征（Iterator Trait）
 
-[Iterator trait](https://doc.rust-lang.org/std/iter/trait.Iterator.html) 是迭代器 API 的基础：
+[Iterator trait](https://doc.rust-lang.org/std/iter/trait.Iterator.html) 是迭代器 API 的基础。
+
+让我们定义一个简单的 `MyIterator` 特征来演示其结构：
 
 ```rust
 pub trait MyIterator {
