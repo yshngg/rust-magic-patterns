@@ -4,7 +4,7 @@
   <summary>支持语言</summary>
   <ul>
     <li>
-      <a href='https://github.com/alexpusch/rust-magic-patterns/tree/master/axum-style-magic-function-param'>简体中文</a> - <a href="https://github.com/alexpusch">@alexpusch</a>
+      <a href='https://github.com/alexpusch/rust-magic-patterns/tree/master/axum-style-magic-function-param'>English</a> - <a href="https://github.com/alexpusch">@alexpusch</a>
     </li>
   </ul>
 </details>
