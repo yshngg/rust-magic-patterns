@@ -11,7 +11,7 @@
 
 初学 Rust 时，我接触到的是一门严格的静态类型语言，它没有函数重载或可选参数等特性。
 
-但当我发现[Axum](https://github.com/tokio-rs/axum)框架时，这样的代码让我感到惊奇：
+但当我发现 [Axum](https://github.com/tokio-rs/axum) 框架时，这样的代码让我感到惊奇：
 
 ```rust
 let app = Router::new()
@@ -38,7 +38,7 @@ fn print_id(id: Id) {
     println!("id is {}", id.0);
 }
 
-// Param(param)是模式匹配
+// Param(param) 只是模式匹配
 fn print_all(Param(param): Param, Id(id): Id) {
     println!("param is {param}, id is {id}");
 }
@@ -51,7 +51,7 @@ pub fn main() {
 }
 ```
 
-示例中`trigger`方法接收`Context`对象和函数指针，函数指针可能接收 1 个或 2 个参数（`Id`或`Param`类型）。魔法何在？
+示例中 `trigger` 方法接收 `Context` 对象和函数指针，函数指针可能接收 1 个或 2 个参数（ `Id` 或 `Param` 类型）。魔法何在？
 
 ## 核心组件解析
 
@@ -64,7 +64,7 @@ struct Context {
 }
 ```
 
-`Context`类似 Axum 中的`Request`，是参数的来源。本例包含两个数据字段。
+`Context` 类似 Axum 中的 `Request`，是参数的来源。本例包含两个数据字段。
 
 ### FromContext 特征（Trait）
 
@@ -74,7 +74,7 @@ trait FromContext {
 }
 ```
 
-第一个魔法是`FromContext`特征，允许创建从上下文提取数据的"提取器"。例如：
+第一个技巧是 `FromContext` 特征，允许创建从 `Context` 提取数据的 **Extractor**。例如：
 
 ```rust
 pub struct Param(pub String);
@@ -86,7 +86,7 @@ impl FromContext for Param {
 }
 ```
 
-该特征使我们能够将`Context`转换为函数需要的`Param`参数。
+该特征使我们能够将 `Context` 转换为函数需要的 `Param` 参数。更多内容稍后介绍。
 
 ### Handler 特征（Trait）
 
@@ -96,7 +96,7 @@ trait Handler<T> {
 }
 ```
 
-第二个魔法是 Handler 特征。我们为[闭包类型](https://doc.rust-lang.org/reference/types/closure.html)实现该特征：
+第二个技巧是 `Handler` 特征。我们为[闭包类型](https://doc.rust-lang.org/reference/types/closure.html) Fn(T) 实现该特征。是的，我们可以实现闭包类型的特征。此实现将使我们能够在函数调用及其参数之间具有**中间件 (middleware)**。在这里，我们将调用 `FromContext::from_context` 方法，将 `Context` 转换为预期函数参数，即`Param` 或 `Id`。
 
 ```rust
 impl<F, T> Handler<T> for F
@@ -125,11 +125,11 @@ where
 }
 ```
 
-该实现不关心参数顺序，支持`fn foo(p: Param, id: Id)`和`fn foo(id: Id, p: Param)`两种形式。
+该实现不关心参数顺序，支持 `fn foo(p: Param, id: Id)` 和 `fn foo(id: Id, p: Param)` 两种形式。
 
 ### 整合实现
 
-`trigger`函数实现：
+`trigger` 函数的实现现在变得简单直接：
 
 ```rust
 pub fn trigger<T, H>(context: Context, handler: H)
@@ -147,8 +147,8 @@ let context = Context::new("magic".into(), 33);
 trigger(context.clone(), print_id);
 ```
 
-1. `print_id`类型为`Fn(Id)`，对应`Handler<Id>`实现
-2. 调用`Handler::call`方法，通过`Id::from_context(context)`获取参数
-3. 使用转换后的参数调用`print_id`
+1. `print_id` 类型为 `Fn(Id)`，对应 `Handler<Id>` 实现
+2. 调用 `Handler::call` 方法，通过 `Id::from_context(context)` 获取参数
+3. 使用转换后的参数调用 `print_id`
 
-魔法原理揭秘。
+魔法揭秘。
