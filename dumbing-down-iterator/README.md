@@ -238,7 +238,7 @@ fn my_map_filter_next_returns_next_item() {
 }
 ```
 
-## 收集方法（Collect Method）
+## 收集（Collect）
 
 大多数迭代器用法最终都会调用 [`collect`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect) 方法，以便将迭代项收集到具体类型的集合中。我们也来深入了解一下这个方法的内部机制。
 
@@ -250,7 +250,7 @@ pub trait MyIterator {
 
     fn collect<B>(self) -> B
     where
-        B: MyFromIterator<Self::Item>,  // 需实现收集特征
+        B: MyFromIterator<Self::Item>,
         Self: Sized,
     {
        B::my_from_iter(self)
